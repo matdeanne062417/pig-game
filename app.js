@@ -19,6 +19,7 @@ document.getElementById('current-0').textContent ='0';
 document.getElementById('current-1').textContent ='0';
 
 document.querySelector('.dice').style.display = 'none';
+document.querySelector('.dice2').style.display = 'none';
 document.querySelector('#name-0').textContent = 'Player 1';
 document.querySelector('#name-1').textContent = 'Player 2';
 
@@ -36,23 +37,31 @@ newGame.addEventListener('click', function() {
 	location.reload();
 });
 
-//roll rice button
+//roll dice button
 roller.addEventListener('click', function() {
-    var dice = Math.floor(Math.random()*6) + 1;
+
+	if (gamePlaying){
+	var dice = Math.floor(Math.random()*6) + 1;
+	var dice2 = Math.floor(Math.random()*6) + 1;
  	var diceDom  = document.querySelector('.dice');
+ 	var diceDom2  = document.querySelector('.dice2');
 
 	 // for roll dice image
  	diceDom.style.display = 'block';
+ 	diceDom2.style.display = 'block';
  	diceDom.src = 'dice-' + dice + '.png';
+ 	diceDom2.src = 'dice-' + dice2 + '.png';
 
- 	if(dice !== 1){
+ 	if(dice !== 1 && dice2 !==1){
  		//add score
- 		roundScore += dice;
+ 		roundScore += dice + dice2;
  		document.querySelector('#current-' + activePlayer).textContent = roundScore;
  	}else{ 
  		//nextplayer
 		 nextPlayer();
-	 }
+	}
+	}
+
 	});
 
 // hold button
@@ -66,6 +75,7 @@ holder.addEventListener('click', function() {
 		if(scores[activePlayer] >= 100) {
     		document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
     		document.querySelector('.dice').style.display = 'none';
+    		document.querySelector('.dice2').style.display = 'none';
     		document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
 			document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
 			gamePlaying = false;
@@ -89,6 +99,7 @@ function nextPlayer() {
 	document.querySelector('.player-1-panel').classList.toggle('active');
 
 	document.querySelector('.dice').style.display = 'none';
+	document.querySelector('.dice2').style.display = 'none';
 }
 
 
