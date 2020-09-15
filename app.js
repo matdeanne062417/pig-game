@@ -31,14 +31,17 @@ const roller = document.querySelector('.btn-roll');
 const holder = document.querySelector('.btn-hold');
 const newGame = document.querySelector('.btn-new');
 
+// for new game button
 newGame.addEventListener('click', function() {
 	location.reload();
 });
 
+//roll rice button
 roller.addEventListener('click', function() {
     var dice = Math.floor(Math.random()*6) + 1;
  	var diceDom  = document.querySelector('.dice');
 
+	 // for roll dice image
  	diceDom.style.display = 'block';
  	diceDom.src = 'dice-' + dice + '.png';
 
@@ -52,11 +55,14 @@ roller.addEventListener('click', function() {
 	 }
 	});
 
+// hold button
 holder.addEventListener('click', function() { 
+	// add score to global if hold button were to press
 	if(gamePlaying) {
 		scores[activePlayer] += roundScore;
 		document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 		
+		// declares winner
 		if(scores[activePlayer] >= 100) {
     		document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
     		document.querySelector('.dice').style.display = 'none';
@@ -69,13 +75,16 @@ holder.addEventListener('click', function() {
     }	
 });
 
+// next player function
 function nextPlayer() {
 	activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
 	roundScore = 0;
 
+	// determines whose player is turn 
 	document.querySelector('#current-0').textContent = '0';
 	document.querySelector('#current-1').textContent = '0';
 
+	//displays which player is active
 	document.querySelector('.player-0-panel').classList.toggle('active');
 	document.querySelector('.player-1-panel').classList.toggle('active');
 
